@@ -1,0 +1,113 @@
+<div class="position-relative text-center mb-4">
+    <div class="h-100 position-absolute d-flex align-items-center">
+        <span class="undo-icon icon-action-undo" [routerLink]="'/customer-portal/result'" role="button"></span>
+    </div>
+    <span class="text-success">{{'FPN' | translate}}</span>
+</div>
+
+<div>
+    <div class="row mb-2">
+        <span class="col-sm-6">{{'FIXED_PAYMENT_NUMBER' | translate}} (FPN):</span>
+        <span class="col-sm-6 font-weight-bold">{{ fpn.fpnNumber | empty:'-' }}</span>
+    </div>
+    <div class="row mb-2">
+        <span class="col-sm-6">{{'REFERENCE_NUMBER' | translate}} (RN):</span>
+        <span class="col-sm-6 font-weight-bold">{{ fpn.rnNumber | empty:'-' }}</span>
+    </div>
+    <div class="row mb-2">
+        <span class="col-sm-6">{{'CHARGE_AMOUNT' | translate}}:</span>
+        <span class="col-sm-6 font-weight-bold">EUR {{ fpn.chargeAmount | number : '1.2-2' | empty:'-' }}</span>
+    </div>
+
+    <div class="mb-2 text-center">
+        <span>{{'APPEAL_FORM' | translate}}</span>
+    </div>
+    <form [formGroup]="appealForm" (submit)="submitAppeal()">
+        <!-- Begin: Message field -->
+        <div class="mb-3">
+            <textarea 
+                class="form-control" 
+                [class.is-valid]="appealForm.controls['message'].touched && appealForm.controls['message'].valid"
+                [class.is-invalid]="appealForm.controls['message'].invalid && (appealFormSubmitted || appealForm.controls['message'].touched)"
+                formControlName="message">
+            </textarea>
+            <div *ngIf="appealForm.controls['message'].invalid && (appealFormSubmitted || appealForm.controls['message'].touched)"
+                class="invalid-feedback d-block">
+                <i class="icon-exclamation mr-1"></i>
+                <span>{{'APPEAL_MESSAGE_VALIDATION' | translate}}</span>
+            </div>
+        </div>
+        <!-- End: Message field -->
+
+        <!-- Begin: Files field -->
+        <div class="mb-3">
+            <div *ngIf="selectedFiles.length > 0" class="mb-2">
+                <div *ngFor="let selectedFile of selectedFiles; let i=index" class="d-flex align-items-center">
+                    <span class="text-primary mr-2">{{ selectedFile.name }}</span>
+                    <span (click)="removeSelectedFile(i)" role="button" [class.disabled]="isLoading">
+                        <i class="icon-close text-danger font-weight-bold"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text icon-info font-weight-bold align-middle"
+                        [ngbTooltip]="'APPEAL_FILE_TOOLTIP' | translate"
+                        placement="right" role="button"></span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" 
+                        class="custom-file-input"
+                        [class.is-valid]="selectedFiles.length > 0 && appealForm.controls['files'].valid"
+                        [class.is-invalid]="appealForm.controls['files'].invalid"
+                        formControlName="files"
+                        (change)="fileOnChange($event)"
+                        accept=".png,.jpg,.jpeg,.pdf"
+                        id="files"
+                        multiple>
+                    <label class="custom-file-label" for="files">{{'CHOOSE_APPEAL_FILE' | translate}}...</label>
+                </div>
+            </div>
+            <div *ngIf="appealForm.controls['files'].invalid && (appealFormSubmitted || appealForm.controls['files'].touched)" 
+                class="invalid-feedback d-block">
+                <i class="icon-exclamation mr-1"></i>
+                <span *ngIf="appealForm.controls['files'].errors?.maxLength">{{'APPEAL_FILES_MAXLENGHT_VALIDATION' | translate}}</span>
+                <span *ngIf="appealForm.controls['files'].errors?.maxSize">{{'APPEAL_FILES_MAXSIZE_VALIDATION' | translate}}</span>
+                <span *ngIf="appealForm.controls['files'].errors?.allowMimeTypes">{{'APPEAL_FILES_ALLOWMINETYPES_VALIDATION' | translate}}</span>
+            </div>
+        </div>
+        <!-- End: Files field -->
+
+        <hr>
+
+        <div class="row align-items-top">
+            <!-- Begin: Comfirm field -->
+            <div class="col-sm-6">
+                <div class="custom-control custom-checkbox">
+                    <input 
+                        type="checkbox"
+                        class="custom-control-input" 
+                        [class.is-valid]="appealForm.controls['confirm'].touched && appealForm.controls['confirm'].valid"
+                        [class.is-invalid]="appealForm.controls['confirm'].invalid && (appealFormSubmitted || appealForm.controls['confirm'].touched)"
+                        formControlName="confirm" 
+                        id="confirm">
+                    <label for="confirm" class="custom-control-label">{{'APPEAL_CONFIRM' | translate}}</label>
+                </div>
+                <div *ngIf="appealForm.controls['confirm'].invalid && (appealFormSubmitted || appealForm.controls['confirm'].touched)"
+                    class="invalid-feedback d-block mb-3 ml-4">
+                    <i class="icon-exclamation mr-1"></i>
+                    <span>{{'APPEAL_CONFIRM_VALIDATION' | translate}}</span>
+                </div>
+            </div>
+            <!-- End: Comfirm field -->
+
+            <div class="appeal-btn col-sm-6 text-right">
+                <button class="btn btn-warning font-weight-bold pt-2 pb-2 pl-5 pr-5 text-white" [disabled]="isLoading">
+                    <span *ngIf="!isLoading" class="icon-check"></span>
+                    <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+                    <span class="pl-1">{{'APPEAL' | translate}}</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

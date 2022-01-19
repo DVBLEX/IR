@@ -1,0 +1,60 @@
+<div class="position-relative text-center mb-4">
+    <div class="h-100 position-absolute d-flex align-items-center">
+        <span class="undo-icon icon-action-undo" [routerLink]="'/customer-portal/result'" role="button"></span>
+    </div>
+    <span class="text-success">{{'FPN' | translate}}</span>
+</div>
+
+<div>
+    <div class="row mb-2">
+        <span class="col-sm-6">{{'FIXED_PAYMENT_NUMBER' | translate}} (FPN):</span>
+        <span class="col-sm-6 font-weight-bold">{{ fpn.fpnNumber | empty:'-' }}</span>
+    </div>
+    <div class="row mb-2">
+        <span class="col-sm-6">{{'REFERENCE_NUMBER' | translate}} (RN):</span>
+        <span class="col-sm-6 font-weight-bold">{{ fpn.rnNumber | empty:'-' }}</span>
+    </div>
+    <div class="row mb-2">
+        <span class="col-sm-6">{{'CHARGE_AMOUNT' | translate}}:</span>
+        <span class="col-sm-6 font-weight-bold">EUR {{ fpn?.chargeAmount | number : '1.2-2' | empty:'-' }}</span>
+    </div>
+
+    <!-- Begin: Payment Frame -->
+    <img src="https://cdn.omise.co/assets/credit-card-icon-blog/credit-card-icon-blog-01.jpg" 
+        class="border p-2 w-100 mt-3 mb-3 bg-light">
+    <!-- End: Payment Frame -->
+
+    <form [formGroup]="paymentForm" (submit)="pay()">
+        <div class="row mb-3">
+            <div class="col-sm-6">
+                <label class="mt-1" for="email">
+                    <span class="align-middle">{{'EMAIL_RECEIPT' | translate}}</span>
+                </label>
+            </div>
+            <div class="col-sm-6">
+                <input type="email"
+                    class="form-control" 
+                    [ngClass]="{
+                        'is-valid': paymentForm.controls['email'].touched && paymentForm.controls['email'].valid,
+                        'is-invalid': paymentForm.controls['email'].invalid && (paymentFormSubmitted || paymentForm.controls['email'].touched)
+                    }" 
+                    formControlName="email" 
+                    id="email">
+                <div *ngIf="paymentForm.controls['email'].invalid && (paymentFormSubmitted || paymentForm.controls['email'].touched)"
+                    class="invalid-feedback d-block">
+                    <i class="icon-exclamation mr-1"></i>
+                    <span>{{'EMAIL_VALIDATION' | translate}}</span>
+                </div>    
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-success font-weight-bold pt-2 pb-2 pl-5 pr-5" [disabled]="isLoading">
+                <span *ngIf="!isLoading" class="icon-credit-card"></span>
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+                <span class="pl-1">{{'PAY' | translate}}</span>
+            </button>
+        </div>
+    </form>
+
+</div>

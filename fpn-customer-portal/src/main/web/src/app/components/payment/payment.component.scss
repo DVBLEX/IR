@@ -1,0 +1,14 @@
+div.position-relative {
+  span.text-success {
+    font-size: 200%;
+    font-weight: 600;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 557px) {
+  div.position-relative {
+    span.text-success {
+      font-size: 160%;
+    }
+  }
+}

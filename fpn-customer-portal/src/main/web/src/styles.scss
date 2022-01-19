@@ -1,0 +1,33 @@
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+/* Importing Simple Line Icons library. */
+@import "~simple-line-icons/scss/simple-line-icons";
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: #fafafa;
+
+  button, input, textarea, .list-group, .alert {
+    border-radius: 0 !important;
+  }
+}
+
+.undo-icon {
+  font-size: 160%;
+  color: green;
+  transition: 0.2s;
+}
+
+.undo-icon:hover {
+  opacity: 0.4;
+}
+
+ .btn, .form-control, .dropdown-menu {
+  font-size: 100%;
+}
+
+.tooltip {
+  font-size: 90%;
+}

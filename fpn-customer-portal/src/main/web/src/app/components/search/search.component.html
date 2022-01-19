@@ -1,0 +1,81 @@
+<div class="position-relative text-center mb-4">
+    <span class="text-success">{{'FPN' | translate}}</span>
+</div>
+
+<form [formGroup]="searchForm" (submit)="searchFPN()">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <label for="fpn">
+                <span class="align-middle">{{'FIXED_PAYMENT_NUMBER' | translate}} (FPN):*</span>
+            </label>
+            <span class="icon-info font-weight-bold align-middle ml-1"
+                  (click)="toggleHint(true)"
+                  [ngbTooltip]="'SEARCH_FIELD_TOOLTIP' | translate"
+                  placement="top" role="button">
+        </span>
+        </div>
+        <div class="col-md-6">
+            <input type="text" 
+                class="form-control" 
+                [ngClass]="{
+                    'is-valid': searchForm.controls['fpn'].touched && searchForm.controls['fpn'].valid,
+                    'is-invalid': searchForm.controls['fpn'].invalid && (searchFormSubmitted || searchForm.controls['fpn'].touched)
+                }" 
+                formControlName="fpn"
+                id="fpn">
+            <div *ngIf="searchForm.controls['fpn'].invalid && (searchFormSubmitted || searchForm.controls['fpn'].touched)"
+                class="invalid-feedback d-block">
+                <i class="icon-exclamation mr-1"></i>
+                <span>{{'FPN_NUMBER_VALIDATION' | translate}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <label for="rn">
+                <span class="align-middle">{{'REFERENCE_NUMBER' | translate}} (RN):*</span>
+            </label>
+            <span class="icon-info font-weight-bold align-middle ml-1"
+                  (click)="toggleHint(true)"
+                  [ngbTooltip]="'SEARCH_FIELD_TOOLTIP' | translate"
+                  placement="top" role="button">
+
+            </span>
+        </div>
+        <div class="col-md-6">
+            <input type="text" 
+                class="form-control" 
+                [ngClass]="{
+                    'is-valid': searchForm.controls['rn'].touched && searchForm.controls['rn'].valid,
+                    'is-invalid': searchForm.controls['rn'].invalid && (searchFormSubmitted || searchForm.controls['rn'].touched)
+                }" 
+                formControlName="rn"
+                id="rn">
+            <div *ngIf="searchForm.controls['rn'].invalid && (searchFormSubmitted || searchForm.controls['rn'].touched)"
+                class="invalid-feedback d-block">
+                <i class="icon-exclamation mr-1"></i>
+                <span>{{'RN_NUMBER_VALIDATION' | translate}}</span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="errorMessage" 
+        class="alert alert-danger" role="alert">{{ errorMessage }}</div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-success pt-2 pb-2 pl-5 pr-5" [disabled]="isLoading">
+            <span *ngIf="!isLoading" class="icon-magnifier"></span>
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+            <span class="pl-1">{{'SEARCH' | translate}}</span>
+        </button>
+    </div>
+</form>
+
+<div *ngIf="isShowHint">
+    <div class="text-right container pr-0 img-wrapper">
+        <span role="button" (click)="toggleHint(false)" class="icon-close font-weight-bold"></span>
+    </div>
+    <div class="d-flex justify-content-center align-items-baseline w-100">
+        <img src="https://fpn.irishrail.ie/images/showitFPNRN.png"
+            class="w-100 img-wrapper"
+            [alt]="'FIXED_PENALTY_NOTICE' | translate">
+    </div>
+</div>

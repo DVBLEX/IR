@@ -1,0 +1,1 @@
+INSERT INTO "fixed_penalty_notices" ("id", "fpn_number", "rn_number", "first_name", "surname", "house_name", "house_number", "street", "locality", "province", "offence_id", "charge_amount", "is_appeal_submitted", "date_created") VALUES ('1', '50001', '14020', 'John', 'Doe', '1', '15', 'Bridge St.', 'Killybegs', 'County Donegl', '1', '14.5', '1', '2021-10-28');

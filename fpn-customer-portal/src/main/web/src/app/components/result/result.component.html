@@ -1,0 +1,89 @@
+<div class="position-relative text-center mb-4">
+    <div class="h-100 position-absolute d-flex align-items-center">
+        <span class="undo-icon icon-action-undo" [routerLink]="['/customer-portal/search']" role="button"></span>
+    </div>
+    <span class="text-success">{{'FPN' | translate}}</span>
+</div>
+
+<div class="mb-4">
+    <div class="row mb-2">
+        <span class="col-sm-6">{{'FIXED_PAYMENT_NUMBER' | translate}} (FPN):</span>
+        <span class="col-sm-6 font-weight-bold">{{ fpn.fpnNumber }}</span>
+    </div>
+
+    <div class="row mb-2">
+        <span class="col-sm-6">{{'REFERENCE_NUMBER' | translate}} (RN):</span>
+        <span class="col-sm-6 font-weight-bold">{{ fpn.rnNumber }}</span>
+    </div>
+
+    <!-- FPN Not Found start -->
+    <div *ngIf="!isExist; else fpnFound" class="list-group text-white mt-4 ">
+        <div class="list-group-item text-center bg-warning">{{'WARNING' | translate}}
+            : {{'FPN_NOT_FOUND' | translate}}</div>
+        <div class="list-group-item bg-warning">
+            <p class="mb-3">{{'FPN_NOT_FOUND_MESSAGE' | translate}}</p>
+            <p>{{'FPN_NOT_FOUND_SUBMESSAGE' | translate}}</p>
+        </div>
+    </div>
+    <!-- FPN Not Found end -->
+
+    <!-- FPN Found start -->
+    <ng-template #fpnFound>
+        <div class="row mb-2">
+            <span class="col-sm-6">{{'NAME' | translate}}:</span>
+            <span class="col-sm-6 font-weight-bold">{{ (fpn.firstName | empty) + ' ' + (fpn.surname | empty:'-') }}</span>
+        </div>
+
+        <div class="row mb-2">
+            <span class="col-sm-6">{{'ADDRESS' | translate}}:</span>
+            <div class="col-sm-6 font-weight-bold">
+                <div class="d-flex flex-column">
+                    <span>{{'STREET' | translate}}: {{fpn.address?.houseNumber | empty}} {{fpn.address?.houseName | empty}} {{fpn.address?.street | empty}} St.</span>
+                    <span>{{'CITY' | translate}}: {{fpn.address?.province | empty:'-'}}</span>
+                    <span>{{'STATE_PROVINCE_AREA' | translate}}: {{fpn.address?.locality | empty:'-'}}</span>
+                    <span>{{'PHONE_NUMBER' | translate}}: 0272354226</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <span class="col-sm-6">{{'OFFENCE' | translate}}:</span>
+            <div class="col-sm-6">
+                <div class="d-flex flex-column">
+                    <span class="font-weight-bold">{{fpn.offence?.title | empty:'-'}}</span>
+                    <span>
+                        {{fpn.offence?.description | empty:'-'}}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <span class="col-sm-6">{{'CHARGE_AMOUNT' | translate}}:</span>
+            <span class="col-sm-6 font-weight-bold">EUR {{ fpn?.chargeAmount | number : '1.2-2' | empty:'-' }}</span>
+        </div>
+    </ng-template>
+    <!-- FPN Found end -->
+</div>
+
+<!-- buttons start -->
+<div class="d-flex justify-content-between position-buttons">
+    <div class="position-relative">
+        <div
+                *ngIf="fpn?.isAppealSubmitted"
+                class="h-100 w-100 position-absolute"
+                [ngbTooltip]="('WARNING' | translate) + ': ' + ('WARNING_APPEAL_TOOLTIP' | translate)">
+        </div>
+
+        <button 
+            class=" h-100 w-100 btn btn-warning btn-sm font-weight-bold text-white pt-2 pb-2 pl-5 pr-5"
+            [routerLink]="['/customer-portal/appeal']"
+            [disabled]="fpn?.isAppealSubmitted"
+        >{{'APPEAL' | translate}}</button>
+    </div>
+
+    <button class="btn btn-success btn-sm font-weight-bold text-white pt-2 pb-2 pl-5 pr-5" [routerLink]="['/customer-portal/payment']">
+        {{'PAY' | translate}}
+    </button>
+</div>
+<!-- buttons end -->

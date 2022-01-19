@@ -1,0 +1,49 @@
+
+    <div class="settings mt-4" [ngClass]="isOpened ? 'settings_active' : 'settings_inactive'">
+        <div (click)="openSettings()" class="settings-btn">
+            <i class="icon-settings"></i>
+        </div>
+
+            <div class="p-4">
+                <span class="title-setting">{{ 'FONT_FAMILY' | translate }}</span>
+                <ul class="p-0">
+                    <li (click)="changeFontFamily('Arial Narrow')">
+                        <span>{{ 'ARIAL_NARROW' | translate }}</span>
+                    </li>
+                    <li (click)="changeFontFamily('Times New Roman')">
+                        <span>{{ 'TIMES_NEW_ROMAN' | translate }}</span>
+                    </li>
+                    <li (click)="changeFontFamily('system-ui')">
+                        <span>{{ 'DEFAULT' | translate }}</span>
+                    </li>
+                </ul>
+
+                <hr>
+
+                <span class="title-setting">{{ 'FONT_SETTINGS' | translate }}</span>
+                <ul class="p-0">
+                    <li (click)="changeFontSizeBigger(10)">
+                        <i class="icon-plus pr-1"></i>
+                        <span>{{ 'BIGGER' | translate }}</span>
+                    </li>
+                    <li (click)="changeFontSizeSmaller(10)">
+                        <i class="icon-minus pr-1"></i>
+                        <span>{{ 'SMALLER' | translate }}</span>
+                    </li>
+                    <li (click)="changeLetterSpacing(true)">
+                        <i class="icon-book-open pr-1"></i>
+                        <span>{{ 'READABLE' | translate }}</span>
+                    </li>
+                </ul>
+
+                <hr>
+
+                <ul class="p-0 mb-0">
+                    <li (click)="reset()">
+                        <i class="icon-trash pr-1"></i>
+                        <span>{{ 'RESET_ALL' | translate }}</span>
+                    </li>
+                </ul>
+            </div>
+
+    </div>

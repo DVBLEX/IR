@@ -1,0 +1,33 @@
+div.position-relative {
+    span.text-success {
+        font-size: 200%;
+        font-weight: 600;
+    }
+}
+
+textarea.form-control{
+    max-height: 200px;
+}
+.custom-file-label,
+.input-group-prepend span,
+.custom-control-label::before{
+    border-radius: 0!important;
+}
+.disabled{
+    pointer-events: none;
+}
+
+@media (max-width: 576px) {
+    .appeal-btn{
+        text-align: center!important;
+        margin-top: 1rem!important;
+    }
+}
+
+@media (min-width: 360px) and (max-width: 557px) {
+    div.position-relative {
+        span.text-success {
+            font-size: 160%;
+        }
+    }
+}

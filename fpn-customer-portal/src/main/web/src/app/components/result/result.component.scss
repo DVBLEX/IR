@@ -1,0 +1,35 @@
+div.position-relative {
+  span.text-success {
+    font-size: 200%;
+    font-weight: 600;
+  }
+
+  div.h-100.w-100.position-absolute {
+    z-index: 100;
+  }
+}
+
+@media (max-width: 557px) {
+  div.position-relative {
+    span.text-success {
+      font-size: 160%;
+    }
+  }
+
+  div.position-buttons {
+    flex-direction: column;
+
+    div.position-relative {
+      padding-bottom: 8px;
+    }
+  }
+
+}
+
+@media (min-width: 360px) and (max-width: 557px) {
+  div.position-relative {
+    span.text-success {
+      font-size: 160%;
+    }
+  }
+}

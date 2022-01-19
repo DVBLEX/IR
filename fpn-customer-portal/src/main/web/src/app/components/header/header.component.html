@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="d-flex justify-content-md-start justify-content-center align-items-center h-100">
+            <div class="d-inline-block">
+                <img src="./assets/img/logo_irishrail.png" alt="Logo Irish Rail">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="d-flex justify-content-md-end justify-content-center align-items-center h-100">
+            <div ngbDropdown class="d-inline-block pr-2">
+                <button class="btn btn-outline-light shadow-none text-dark" id="dropdownBasic" ngbDropdownToggle>
+                    <i class="icon-flag font-weight-bold"></i>
+                    {{selectedLanguage}}
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+                    <button ngbDropdownItem (click)="changeLanguage('en')">English</button>
+                    <button ngbDropdownItem (click)="changeLanguage('ga')">Gaeilge</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
